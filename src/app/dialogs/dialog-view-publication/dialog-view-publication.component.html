@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>Veure publicació</h2>
+<mat-dialog-content>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Publicació</h3>
+      <table class="table">
+        <thead>
+          <th>
+            <span>ID</span>
+          </th>
+          <th>
+            <span>Títol</span>
+          </th>
+          <th>
+            <span>Descripció</span>
+          </th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span>{{ publication.id }}</span>
+            </td>
+            <td>
+              <h3>{{ publication.title }}</h3>
+            </td>
+            <td>
+              <p>{{ publication.description }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Continguts</h3>
+      <table class="table">
+        <thead>
+          <th>ID</th>
+          <th>Tipus</th>
+          <th>Valor</th>
+          <th>Posició</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let content of publication.contents">
+            <td>{{ content.id }}</td>
+            <td>{{ (content.type == 'text') ? 'Texte' : 'Imatge' }}</td>
+            <td *ngIf="content.type == 'text'"><p>{{ content.value }}</p></td>
+            <td *ngIf="content.type == 'image'">
+              <button class="no-button" (click)="viewBigSizedImage(content)">
+                <img [src]="getImage(content)">
+              </button>
+            </td>
+            <td>{{ content.position }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="w-100">
+    <button mat-button (click)="closeDialog()" class="base-button cancel-color">Tancar</button>
+  </div>
+</mat-dialog-actions>

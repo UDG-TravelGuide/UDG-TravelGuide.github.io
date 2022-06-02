@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <span class="icon-span">
+        <fa-icon [icon]="faRouteIcon"></fa-icon>
+      </span>
+      <span>Travel Guide Backoffice</span>
+    </a>
+
+    <div class="nav-logout-button">
+      <button (click)="signOut()" class="no-button">
+        <fa-icon class="icon-size" [icon]="faSignOutAltIcon"></fa-icon>
+        <span class="sortir-span">Sortir</span>
+      </button>
+    </div>
+  </div>
+</nav>

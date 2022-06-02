@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="login">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="bo-header">
+          <h2>
+            <span class="icon-span">
+              <fa-icon [icon]="faRouteIcon"></fa-icon>
+            </span>
+            <span>Travel Guide BackOffice</span>
+          </h2>
+        </div>
+        <div class="login animated-div">
+          <div class="custom-form">
+            <div [formGroup]="formLogin" [@buzzAnimation]="startShakeAnimation" class="row">
+              <mat-form-field class="col-md-12" appearance="fill" color="primary">
+                <mat-label>Correu electrònic</mat-label>
+                <input matInput formControlName="email" placeholder="Correu electrònic">
+              </mat-form-field>
+              <mat-form-field class="col-md-12" appearance="fill" color="primary">
+                <mat-label>Contrasenya</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Contrasenya">
+              </mat-form-field>
+              <div class="col-md-12">
+                <button type="submit" (click)="doLogin()">Login</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

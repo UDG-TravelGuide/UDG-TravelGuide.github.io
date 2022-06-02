@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="!publicationsLoading; else loader" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center mt-4rem component-title">Publicacions</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-5rem">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Títol</th>
+            <th>ID del autor</th>
+            <th>AlphaCode del país</th>
+            <th>Número de reports</th>
+            <th>Punts</th>
+            <th>Accions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let publication of publications">
+            <td>{{ publication.id }}</td>
+            <td>{{ publication.title }}</td>
+            <td>{{ publication.authorId }}</td>
+            <td>{{ publication.countryAlphaCode }}</td>
+            <td>{{ publication.numberOfReports }}</td>
+            <td>{{ publication.points }}</td>
+            <td>
+              <button mat-button [matMenuTriggerFor]="menu" class="base-button button-actions">
+                <span>Accions</span>
+                <fa-icon [icon]="faArrowDown"></fa-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="viewPublication(publication)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faEyeIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Veure publicació</span>
+                    </div>
+                  </div>
+                </button>
+                <button mat-menu-item (click)="deletePublication(publication)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faDeleteIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Esborrar</span>
+                    </div>
+                  </div>
+                </button>
+                <button mat-menu-item (click)="blockAuthor(publication)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faBanIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Bloquejar autor</span>
+                    </div>
+                  </div>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <mat-spinner class="spinner-loader"></mat-spinner>
+</ng-template>

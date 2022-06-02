@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<div *ngIf="!usersLoading; else loader" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="text-center mt-4rem component-title">Usuaris</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 mt-5rem">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom d'usuari</th>
+            <th>Correu electrònic</th>
+            <th>Punts</th>
+            <th>Rol</th>
+            <th>Bloquejat</th>
+            <th>Accions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.userName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.points }}</td>
+            <td>{{ user.role }}</td>
+            <td><mat-checkbox [disabled]="true" [checked]="getBlockedValue(user)"></mat-checkbox></td>
+            <td>
+              <button mat-button [matMenuTriggerFor]="menu" class="base-button button-actions">
+                <span>Accions</span>
+                <fa-icon [icon]="faArrowDown"></fa-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="blockUser(user)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faBanIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Bloquejar</span>
+                    </div>
+                  </div>
+                </button>
+                <button mat-menu-item (click)="unblockUser(user)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faUnbanIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Desbloquejar</span>
+                    </div>
+                  </div>
+                </button>
+                <button mat-menu-item (click)="changeRole(user)" class="action-item">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <fa-icon [icon]="faChangeIcon"></fa-icon>
+                    </div>
+                    <div class="col-md-9">
+                      <span>Canviar rol</span>
+                    </div>
+                  </div>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <mat-spinner class="spinner-loader"></mat-spinner>
+</ng-template>
+

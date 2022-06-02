@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Confirmar Acció</h2>
+<mat-dialog-content>
+  <p>Estàs segur/a de que vols realitzar aquesta acció?</p>
+  <p>{{ action }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="w-100">
+    <button mat-button (click)="cancelAction()" class="base-button cancel-color">Cancel·lar</button>
+    <button mat-button (click)="confirmAction()" class="base-button" style="float: right;">Confirmar</button>
+  </div>
+</mat-dialog-actions>

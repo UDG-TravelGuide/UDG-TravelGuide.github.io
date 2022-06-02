@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #FFF6F0;
+}
+
+.spinner-loader {
+  margin: auto auto;
+  margin-top: 20rem;
+}
+
+.mt-4rem {
+  margin-top: 4rem !important;
+}
+
+.mt-5rem {
+  margin-top: 5rem !important;
+}
+
+.component-title {
+  font-size: 3rem !important;
+}
+
+.no-button {
+  background: none !important;
+  border: none !important;
+}
+
+.base-button {
+  background-color: #ff690f;
+  border: 0px;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.button-actions {
+  margin-top: -1rem;
+}
+
+.button-actions span {
+  margin-right: 0.5rem;
+}
+
+.action-item fa-icon {
+  font-size: 1rem;
+}
+
+table.table tbody td {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+.cancel-color {
+  background-color: #707070 !important;
+}
+
+mat-dialog-content {
+  font-size: 1rem;
+}
