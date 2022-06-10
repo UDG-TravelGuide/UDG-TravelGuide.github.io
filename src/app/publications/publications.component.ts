@@ -34,6 +34,17 @@ export class PublicationsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       this._publications = await firstValueFrom(this._publicationsService.publicationsForBo());
+      this._publications = this._publications.sort((a, b) => {
+        if (a.numberOfReports > b.numberOfReports) {
+          return -1;
+        }
+
+        if (a.numberOfReports < b.numberOfReports) {
+          return 1;
+        }
+
+        return 0;
+      });
       this.publicationsLoading = false;
     } catch (error: any) {
       this._notifyService.notifyError(error.error.message);
