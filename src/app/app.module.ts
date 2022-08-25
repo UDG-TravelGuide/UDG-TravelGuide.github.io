@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module';
 import { DialogChangeRoleComponent } from './dialogs/dialog-change-role/dialog-change-role.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { DialogChangeRoleComponent } from './dialogs/dialog-change-role/dialog-c
     NavbarComponent,
     DialogViewPublicationComponent,
     DialogConfirmActionComponent,
-    DialogChangeRoleComponent
+    DialogChangeRoleComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

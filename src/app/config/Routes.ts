@@ -2,5 +2,6 @@ export const ROUTES_NAVIGATE = {
   HOME: '',
   LOGIN: 'login',
   USERS: 'users',
-  PUBLICATIONS: 'publications'
+  PUBLICATIONS: 'publications',
+  RECOVER_PASSWORD: 'recoverPassword'
 }

@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { PublicationsComponent } from './publications/publications.component';
 import { AuthService } from './services/others/auth.service';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 const routes: Routes = [
   { path: ROUTES_NAVIGATE.HOME, component: HomeComponent, canActivate: [AuthService] },
   { path: ROUTES_NAVIGATE.LOGIN, component: LoginComponent },
   { path: ROUTES_NAVIGATE.USERS, component: UsersComponent, canActivate: [AuthService] },
   { path: ROUTES_NAVIGATE.PUBLICATIONS, component: PublicationsComponent, canActivate: [AuthService] },
+  { path: ROUTES_NAVIGATE.RECOVER_PASSWORD, component: RecoverPasswordComponent },
   { path: '*', redirectTo: ROUTES_NAVIGATE.HOME }
 ];
 
