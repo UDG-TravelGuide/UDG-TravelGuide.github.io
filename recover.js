@@ -1,12 +1,11 @@
+$('#alert-password').hide();
+
 const params = new URLSearchParams(window.location.search);
 
 let hidePassword = true;
-let nextToken = false;
 let token = '';
 let newPassword = '';
 let newPasswordConfirm = '';
-
-$('#alert-password').hide();
 
 for (const p of params) {
     if (p != null && p != undefined && p.length == 2) {
