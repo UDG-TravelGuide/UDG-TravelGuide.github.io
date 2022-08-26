@@ -10,7 +10,7 @@ $('#alert-password').hide();
 
 for (const p of params) {
     if (p != null && p != undefined && p.length == 2) {
-        if (p[0] == 'token') {
+        if (p[0] == 'recoverToken') {
             token = p[1];
         }
     }
@@ -74,7 +74,7 @@ function sendRecoverPassword() {
             }),
             processData: false,
             success: function( data, textStatus, jQxhr ) {
-                console.log('DATA', data, textStatus, jQxhr);
+                alert("S'ha canviat la contrasenya correctament");
             },
             error: function( jqXhr, textStatus, errorThrown ) {
                 console.log( errorThrown );
