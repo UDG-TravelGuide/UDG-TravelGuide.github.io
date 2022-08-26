@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contrasenya | Travel Guide</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+</head>
+<body class="text-center">
+
+    <style>
+        .mt-5rem {
+            margin-top: 5rem;
+        }
+        a, a:hover, a:focus {
+            color: #000;
+        }
+    </style>
+
+    <div class="container">
+        <main class="form-signin w-100 m-auto mt-5">
+            <h1 class="h3 mb-4 fw-normal">Crear nova contrasenya</h1>
+        
+            <div class="input-group form-floating mb-4">
+                <span class="input-group-text">
+                    <a id="eye-link-1" href="#" onclick="hideOrShowPassword()">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </span>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="newPassword" 
+                    placeholder="Nova contrasenya"
+                    oninput="changeNewPasswordInput(this.value)">
+                <label for="floatingInput">Nova contrasenya</label>
+            </div>
+
+            <div class="input-group form-floating mb-4">
+                <span class="input-group-text">
+                    <a id="eye-link-2" href="#" onclick="hideOrShowPassword()">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </span>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    id="newPasswordConfirm" 
+                    placeholder="Confirmar contrasenya"
+                    oninput="changeNewPasswordConfirm(this.value)">
+                <label for="floatingPassword">Confirmar contrasenya</label>
+            </div>
+
+            <button 
+                class="w-100 btn btn-lg btn-primary"
+                onclick="sendRecoverPassword()">
+                Enviar
+            </button>
+        </main>
+
+        <div id="alert-password" class="alert alert-danger mt-5rem" role="alert">
+            Les contrasenyes introduides són incorrectes
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="./recover.js"></script>
+</body>
+</html>
