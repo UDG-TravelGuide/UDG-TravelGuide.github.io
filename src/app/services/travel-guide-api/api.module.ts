@@ -6,15 +6,18 @@ import { HttpClient } from '@angular/common/http';
 import { FavoritesService } from './api/favorites.service';
 import { PublicationsService } from './api/publications.service';
 import { UsersService } from './api/users.service';
+import { SlackService } from './api/slack.service';
 
 @NgModule({
   imports:      [],
   declarations: [],
   exports:      [],
   providers: [
-    FavoritesService,
-    PublicationsService,
-    UsersService ]
+        FavoritesService,
+        PublicationsService,
+        UsersService,
+        SlackService
+    ]
 })
 export class TravelGuideApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<TravelGuideApiModule> {

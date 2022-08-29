@@ -7,6 +7,9 @@ import { IconDefinition, faRoute, faUsers, faNewspaper, faSignOutAlt } from '@fo
 import { ROUTES_NAVIGATE } from '../config/Routes';
 import { NotifyService } from '../services/others/notify.service';
 import { Router } from '@angular/router';
+import { SlackService } from '../services/travel-guide-api/api/slack.service';
+
+import { LogTypes } from '../config/config';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +17,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  
+  private _logsList: string[] = [
+    LogTypes.ALL,
+    LogTypes.INFO,
+    LogTypes.WARNS,
+    LogTypes.ERRORS
+  ];
 
   public get faRouteIcon(): IconDefinition { return faRoute; }
   public get faUsersIcon(): IconDefinition { return faUsers; }
@@ -22,13 +32,20 @@ export class HomeComponent implements OnInit {
   public get usersRoute(): string { return ROUTES_NAVIGATE.USERS; }
   public get publicationsRoute(): string { return ROUTES_NAVIGATE.PUBLICATIONS; }
 
-  constructor(private _usersService: UsersService, private _notifyService: NotifyService, private _dataService: DataService, private _router: Router) { }
+  constructor(private _usersService: UsersService, private _notifyService: NotifyService, private _dataService: DataService, private _router: Router, private _slackService: SlackService) { }
 
   async ngOnInit(): Promise<void> {
     try {
       const result: Token = await firstValueFrom(this._usersService.getRefreshTokenBo());
       this._dataService.removeBearer();
       this._dataService.setBearer(result.token);
+
+      const info: string = LogTypes.INFO;
+
+      // LOAD LOGS
+      this._slackService.fetchConversationsOfChannel('xoxp-4002153375988-3985132758423-4029951655920-2f24388503ed1f91a5d4a00c7781ba46', info).subscribe((response) => {
+        console.log('RESPONSE', response);
+      });
     } catch (error: any) {
       this._notifyService.notifyError(error.error.message);
       this._dataService.removeBearer();
