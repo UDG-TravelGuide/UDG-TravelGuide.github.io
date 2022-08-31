@@ -1,3 +1,4 @@
+import { LogsComponent } from './logs/logs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ROUTES_NAVIGATE } from './config/Routes';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: ROUTES_NAVIGATE.LOGIN, component: LoginComponent },
   { path: ROUTES_NAVIGATE.USERS, component: UsersComponent, canActivate: [AuthService] },
   { path: ROUTES_NAVIGATE.PUBLICATIONS, component: PublicationsComponent, canActivate: [AuthService] },
+  { path: ROUTES_NAVIGATE.LOGS, component: LogsComponent, canActivate: [AuthService] },
   { path: '*', redirectTo: ROUTES_NAVIGATE.HOME }
 ];
 

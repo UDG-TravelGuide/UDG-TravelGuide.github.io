@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+
+<div *ngIf="!loadingLogs; else loader" class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="text-center mt-4rem component-title">Logs</h2>
+      </div>
+    </div>
+    <div class="row mt-10rem">
+      <div class="col-md-3 text-center log-div">
+        <div class="all-logs">
+          <span>
+            <h3>Número de logs de tots els tipus</h3>
+          </span>
+          <span class="count-logs">
+            {{ countAllLogs }}
+          </span>   
+        </div>
+      </div>
+      <div class="col-md-3 text-center log-div">
+        <div class="info-logs">
+          <span>
+            <h3>Número de logs informatius</h3>
+          </span>
+          <span class="count-logs">
+            {{ countInfoLogs }}
+          </span>
+        </div>
+      </div>
+      <div class="col-md-3 text-center log-div">
+        <div class="warn-logs">
+          <span>
+            <h3>Número de logs d'advertencia</h3>
+          </span>
+          <span class="count-logs">
+            {{ countWarnLogs }}
+          </span>
+        </div>
+      </div>
+      <div class="col-md-3 text-center log-div">
+        <div class="error-logs">
+          <span>
+            <h3>Número de logs d'error</h3>
+          </span>
+          <span class="count-logs">
+            {{ countErrorLogs }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-12 text-center">
+        <h3>Enllaç per accedir als missatges específics dels logs</h3>
+        <h3><a target="_blank" href="https://app.slack.com/client/T04024HB1V2">LOGS</a></h3>
+      </div>
+    </div>
+</div>
+
+<ng-template #loader>
+    <mat-spinner class="spinner-loader"></mat-spinner>
+  </ng-template>
+  

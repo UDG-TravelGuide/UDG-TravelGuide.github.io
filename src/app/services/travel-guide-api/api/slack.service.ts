@@ -11,44 +11,28 @@
  *//* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-        HttpResponse, HttpEvent }                           from '@angular/common/http';
 
 import { Observable }                                        from 'rxjs';
 
 
-import { BASE_PATH }                     from '../variables';
 import { Configuration }                                     from '../configuration';
- 
+
+import axios from "axios";
+import { AxiosInstance } from "axios";
  
 @Injectable()
 export class SlackService {
-    protected basePath = 'https://virtserver.swaggerhub.com/hsaddouki/TravelGuideApi/1.0.0';
-    public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
-        if (configuration) {
-            this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
-        }
-    }
+    private axiosClient: AxiosInstance;
 
-    /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (const consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
+    constructor() {
+        this.axiosClient = axios.create({
+            timeout: 3000,
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			}
+        });
     }
 
 
@@ -59,13 +43,7 @@ export class SlackService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public fetchConversationsOfChannel(token: string, channelId: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public fetchConversationsOfChannel(token: string, channelId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public fetchConversationsOfChannel(token: string, channelId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public fetchConversationsOfChannel(token: string, channelId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = new HttpHeaders();
-
+    public async fetchConversationsOfChannel(token: string, channelId: string): Promise<any> {
         if (token == null || token == undefined) {
             throw new Error('Required parameter token was null or undefined when calling fetchConversationsOfChannel.');
         }
@@ -74,18 +52,16 @@ export class SlackService {
             throw new Error('Required parameter channelId was null or undefined when calling fetchConversationsOfChannel.');
         }
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
         const formData = new FormData();
         formData.append('token', token);
-        formData.append('content', "null")
+        formData.append('content', "null");
 
-        return this.httpClient.post<any>(`https://slack.com/api/conversations.history?channel=${ channelId }&pretty=1`, formData);
+        let axiosResp = await this.axiosClient.request({
+            method: 'post',
+            url: `https://slack.com/api/conversations.history?channel=${ channelId }&pretty=1`,
+            data: formData
+        });
+
+        return axiosResp;
     }
 }

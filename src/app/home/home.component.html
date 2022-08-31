@@ -3,7 +3,7 @@
 <div class="options">
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <button class="btn-option" [routerLink]="'/' + usersRoute">
           <span class="icon-span">
             <fa-icon [icon]="faUsersIcon"></fa-icon>
@@ -13,7 +13,7 @@
           </span>
         </button>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <button class="btn-option" [routerLink]="'/' + publicationsRoute">
           <span class="icon-span">
             <fa-icon [icon]="faNewspaperIcon"></fa-icon>
@@ -23,7 +23,17 @@
           </span>
         </button>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <button class="btn-option" [routerLink]="'/' + logsRoute">
+          <span class="icon-span">
+            <fa-icon [icon]="faClipboard"></fa-icon>
+          </span>
+          <span>
+            Logs
+          </span>
+        </button>
+      </div>
+      <div class="col-md-3">
         <button (click)="signOut()" class="btn-option">
           <span class="icon-span">
             <fa-icon [icon]="faSignOutAltIcon"></fa-icon>
