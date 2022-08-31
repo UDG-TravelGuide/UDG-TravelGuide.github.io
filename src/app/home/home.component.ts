@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { DataService } from './../services/others/local-data.service';
 import { Token } from './../services/travel-guide-api/model/token';
 import { firstValueFrom } from 'rxjs';
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
   public get usersRoute(): string { return ROUTES_NAVIGATE.USERS; }
   public get publicationsRoute(): string { return ROUTES_NAVIGATE.PUBLICATIONS; }
 
-  constructor(private _usersService: UsersService, private _notifyService: NotifyService, private _dataService: DataService, private _router: Router, private _slackService: SlackService) { }
+  constructor(private _usersService: UsersService, private _notifyService: NotifyService, private _dataService: DataService, private _router: Router, private _slackService: SlackService) {
+  }
 
   async ngOnInit(): Promise<void> {
     try {
@@ -41,11 +43,13 @@ export class HomeComponent implements OnInit {
       this._dataService.setBearer(result.token);
 
       const info: string = LogTypes.INFO;
+      const slackToken: any = environment.slackApi;
+      console.log('TOKEN', slackToken);
 
       // LOAD LOGS
-      this._slackService.fetchConversationsOfChannel('xoxp-4002153375988-3985132758423-4029951655920-2f24388503ed1f91a5d4a00c7781ba46', info).subscribe((response) => {
+      /* this._slackService.fetchConversationsOfChannel(, info).subscribe((response) => {
         console.log('RESPONSE', response);
-      });
+      }); */
     } catch (error: any) {
       this._notifyService.notifyError(error.error.message);
       this._dataService.removeBearer();

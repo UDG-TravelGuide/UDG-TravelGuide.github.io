@@ -33,11 +33,14 @@ export class UsersComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      const users = await firstValueFrom(this._usersService.usersGet());
+      const paginatedUsers: any = await firstValueFrom(this._usersService.usersGet());
+      const users: User[] = paginatedUsers.users;
       if (users instanceof Array) {
         this._users = users.sort((a: User, b: User) => {
           return a.id - b.id;
         });
+        this.usersLoading = false;
+      } else {
         this.usersLoading = false;
       }
     } catch (error: any) {

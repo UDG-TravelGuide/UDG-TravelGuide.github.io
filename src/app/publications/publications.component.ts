@@ -33,7 +33,9 @@ export class PublicationsComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      this._publications = await firstValueFrom(this._publicationsService.publicationsForBo());
+      const paginatedPublications: any = await firstValueFrom(this._publicationsService.publicationsForBo());
+      console.log('PAGINATED', paginatedPublications);
+      this._publications = paginatedPublications.publications;
       this._publications = this._publications.sort((a, b) => {
         if (a.numberOfReports > b.numberOfReports) {
           return -1;

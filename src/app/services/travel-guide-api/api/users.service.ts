@@ -212,8 +212,8 @@ export class UsersService {
      * @param reportProgress flag to report request and response progress.
      */
     public usersGet(observe?: 'body', reportProgress?: boolean): Observable<Array<User>>;
-    public usersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<User>>>;
-    public usersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<User>>>;
+    public usersGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<any>>>;
+    public usersGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<any>>>;
     public usersGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;

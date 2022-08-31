@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://travelguideuserapi.herokuapp.com'
+  api: 'https://travelguideuserapi.herokuapp.com',
+  slackApi: 'Slack API Value'
 };
 
 /*
