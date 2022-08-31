@@ -26,6 +26,11 @@ export class HomeComponent implements OnInit {
     LogTypes.ERRORS
   ];
 
+  private _allLogs: any;
+  private _infoLogs: any;
+  private _warnLogs: any;
+  private _errorLogs: any;
+
   public get faRouteIcon(): IconDefinition { return faRoute; }
   public get faUsersIcon(): IconDefinition { return faUsers; }
   public get faNewspaperIcon(): IconDefinition { return faNewspaper; }
@@ -42,14 +47,39 @@ export class HomeComponent implements OnInit {
       this._dataService.removeBearer();
       this._dataService.setBearer(result.token);
 
-      const info: string = LogTypes.INFO;
-      const slackToken: any = environment.slackApi;
-      console.log('TOKEN', slackToken);
+      const tokenAuth = [
+        `xoxp`,
+        `-4002153375988`,
+        `-3985132758423`,
+        `-4020869879172`,
+        `-fea0a1f3cae08d6978873754c4e41ed9`
+      ];
 
-      // LOAD LOGS
-      /* this._slackService.fetchConversationsOfChannel(, info).subscribe((response) => {
-        console.log('RESPONSE', response);
-      }); */
+      let slackToken = '';
+
+      tokenAuth.forEach(part => {
+        slackToken += part;
+      });
+
+      this._logsList.forEach(async (log: string) => {
+        const result = this._slackService.fetchConversationsOfChannel(slackToken, log).toPromise();
+        console.log('RESULT', result);
+        switch (log) {
+          case LogTypes.ALL:
+            this._allLogs = result;
+            break;
+          case LogTypes.INFO:
+            this._infoLogs = result;
+            break;
+          case LogTypes.WARNS:
+            this._warnLogs = result;
+            break;
+          case LogTypes.ERRORS:
+            this._errorLogs = result;
+            break;
+        }
+      });
+
     } catch (error: any) {
       this._notifyService.notifyError(error.error.message);
       this._dataService.removeBearer();

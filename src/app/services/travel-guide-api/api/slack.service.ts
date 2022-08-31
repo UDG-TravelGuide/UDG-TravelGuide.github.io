@@ -84,6 +84,7 @@ export class SlackService {
 
         const formData = new FormData();
         formData.append('token', token);
+        formData.append('content', "null")
 
         return this.httpClient.post<any>(`https://slack.com/api/conversations.history?channel=${ channelId }&pretty=1`, formData);
     }
