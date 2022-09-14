@@ -1,0 +1,14 @@
+.page-item {
+    cursor: pointer;
+}
+
+.page-item span {
+    background-color: white;
+    color: #ff690f;
+}
+
+.page-item.active span {
+    background-color: #ff690f !important;
+    color: white !important;
+    border-color: #ff690f !important;
+}

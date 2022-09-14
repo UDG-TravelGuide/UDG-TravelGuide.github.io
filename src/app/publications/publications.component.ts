@@ -21,9 +21,15 @@ export class PublicationsComponent implements OnInit {
 
   // Private variables
   private _publications: Publication[] = [];
+  private _pages: number[] = [];
+  private _actualPage: number = 0;
+  private _showPagination: boolean = false;
 
   // Getters and setters
   public get publications(): Publication[] { return this._publications; }
+  public get pages(): number[] { return this._pages; }
+  public get showPagination(): boolean { return this._showPagination; }
+  public get actualPage(): number { return this._actualPage; }
   public get faEyeIcon(): IconDefinition { return faEye; }
   public get faDeleteIcon(): IconDefinition { return faTrashAlt; }
   public get faBanIcon(): IconDefinition { return faLock; }
@@ -34,24 +40,43 @@ export class PublicationsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       const paginatedPublications: any = await firstValueFrom(this._publicationsService.publicationsForBo());
-      console.log('PAGINATED', paginatedPublications);
-      this._publications = paginatedPublications.publications;
-      this._publications = this._publications.sort((a, b) => {
-        if (a.numberOfReports > b.numberOfReports) {
-          return -1;
+      let numPages: number = paginatedPublications.pages;
+
+      if (numPages > 1) {
+        const rest: number = numPages % 1;
+        if (rest > 0) {
+          numPages = (((numPages * 100) - (rest * 100)) / 100) + 1;
         }
 
-        if (a.numberOfReports < b.numberOfReports) {
-          return 1;
+        for (let i = 0; i < numPages; i++) {
+          this._pages.push(i + 1);
         }
 
-        return 0;
-      });
-      this.publicationsLoading = false;
+        this._showPagination = true;
+      } 
+
+      this.loadPublications(paginatedPublications.publications);
     } catch (error: any) {
       this._notifyService.notifyError(error.error.message);
       this.publicationsLoading = false;
     }
+  }
+
+  public loadPublications(publications: Publication[]) {
+    this.publicationsLoading = true;
+    this._publications = publications;
+    this._publications = this._publications.sort((a, b) => {
+      if (a.numberOfReports > b.numberOfReports) {
+        return -1;
+      }
+
+      if (a.numberOfReports < b.numberOfReports) {
+        return 1;
+      }
+
+      return 0;
+    });
+    this.publicationsLoading = false;
   }
 
   /**
@@ -129,6 +154,24 @@ export class PublicationsComponent implements OnInit {
         this._notifyService.notifySuccess(result.message);
       } catch (error: any) {
         this._notifyService.notifyError(error.error.message);
+      }
+    }
+  }
+
+  /**
+   * Actualitzem la pagina
+   * @param page 
+   */
+  public async changePage(page: number): Promise<void> {
+    const pageToGo: number = page - 1;
+    if (pageToGo != this.actualPage) {
+      try {
+        const paginatedPublications: any = await firstValueFrom(this._publicationsService.publicationsForBo(pageToGo));
+        this.loadPublications(paginatedPublications.publications);
+        this._actualPage = pageToGo;
+      } catch (error: any) {
+        this._notifyService.notifyError(error.error.message);
+        this.publicationsLoading = false;
       }
     }
   }

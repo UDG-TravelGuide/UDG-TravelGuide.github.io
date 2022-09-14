@@ -62,10 +62,10 @@ export class PublicationsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public publicationsForBo(observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public publicationsForBo(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public publicationsForBo(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public publicationsForBo(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public publicationsForBo(page?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public publicationsForBo(page?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public publicationsForBo(page?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public publicationsForBo(page?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         let headers = this.defaultHeaders;
 
         // authentication (bearerAuth) required
@@ -86,6 +86,19 @@ export class PublicationsService {
         // to determine the Content-Type header
         const consumes: string[] = [
         ];
+
+        if (page != null && page != undefined) {
+
+            return this.httpClient.request<any>('get',`${this.basePath}/publications/backoffice?page=${ page }`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+
+        }
 
         return this.httpClient.request<any>('get',`${this.basePath}/publications/backoffice`,
             {
